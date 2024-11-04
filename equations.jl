@@ -37,12 +37,14 @@ function dx!(dx, x, p, t;
 
     for i in 1:p.N
         # reset derivatives
-        dx[i] = 0.0
+        dx[i] = 0.0 
 
         # Allee effect
-        if x[i] > 1e-1
+        if x[i] > 1
             # update dx of ith consumer
             growth!(dx, x, p, t, i)
+        else
+            dx[i] += - 0.1*x[i]
         end
     end
 

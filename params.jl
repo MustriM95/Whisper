@@ -48,8 +48,8 @@ function def_k(N, M, kw)
 
     ## Sample total uptake capacity per consumer
     if !haskey(kw, :k_0)
-        ## Sample specialisation parameter for each consumer
-        k_0 = 1.0
+        ## Sample efficiency parameter for each consumer
+        k_0 = 0.2*ones(N)
     else
         k_0 = kw[:k_0]
     end
@@ -57,7 +57,7 @@ function def_k(N, M, kw)
     ## Generate uptake matrix from a dirichlet distribution
     for i = 1:N
         dD = Dirichlet(Ω[i] * θ[i, :])
-        k[i, :] = rand(dD) * k_0
+        k[i, :] = rand(dD) * k_0[i]
     end
     return k
 
